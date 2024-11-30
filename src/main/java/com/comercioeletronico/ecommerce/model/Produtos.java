@@ -3,6 +3,7 @@ package com.comercioeletronico.ecommerce.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -12,10 +13,20 @@ public class Produtos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduto;
+
+    @Column(name = "id_categoria")
     private Integer idCategoria;
+
+    @Column
     private String nome;
+
+    @Column
     private String descricao;
-    private Integer preco;
+
+    @Column
+    private BigDecimal preco;
+
+    @Column
     private Integer estoque;
 
     public Integer getIdProduto() {
@@ -26,20 +37,20 @@ public class Produtos {
         this.idProduto = idProduto;
     }
 
-    public Integer getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Integer preco) {
-        this.preco = preco;
-    }
-
     public Integer getIdCategoria() {
         return idCategoria;
     }
 
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getNome() {
@@ -50,12 +61,12 @@ public class Produtos {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public BigDecimal getPreco() {
+        return preco;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
     }
 
     public Integer getEstoque() {
