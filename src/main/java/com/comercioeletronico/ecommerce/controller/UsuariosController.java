@@ -53,4 +53,23 @@ public class UsuariosController {
            this.repository.delete(usuarios);
            return ResponseEntity.noContent().build();
     }
+    @PutMapping ("/{id}")
+    public ResponseEntity<Usuarios> update(@PathVariable Integer id, @RequestBody UsuariosRequestDTO dto) {
+        if (dto.nome() == null || dto.nome().isEmpty() ||
+                dto.email() == null || dto.email().isEmpty() ||
+                dto.senha() == null || dto.senha().isEmpty()) {
+            return ResponseEntity.status(400).build();
+        }
+
+        Usuarios usuarios = this.repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
+
+
+        usuarios.setNome(dto.nome());
+        usuarios.setEmail(dto.email());
+        usuarios.setSenha(dto.senha());
+
+        this.repository.save(usuarios);
+        return ResponseEntity.ok(usuarios);
+    }
 }
