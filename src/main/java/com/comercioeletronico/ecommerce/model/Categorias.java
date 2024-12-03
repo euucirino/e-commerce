@@ -8,6 +8,7 @@ public class Categorias {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_categoria")
     private Integer idCategoria;
 
     @Column(name = "nome_categoria")
@@ -15,6 +16,8 @@ public class Categorias {
 
     @Column
     private String descricao;
+
+
 
     public String getNomeCategoria() {
         return nomeCategoria;
@@ -24,13 +27,6 @@ public class Categorias {
         this.nomeCategoria = nomeCategoria;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     public Integer getIdCategoria() {
         return idCategoria;
@@ -38,5 +34,13 @@ public class Categorias {
 
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
