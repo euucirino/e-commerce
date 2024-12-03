@@ -22,8 +22,8 @@ public class CategoriasController {
 
     @GetMapping
     public ResponseEntity<List<Categorias>>findAll() {
-        List<Categorias> usuarios = this.repository.findAll();
-        return ResponseEntity.ok(usuarios);
+        List<Categorias> categorias = this.repository.findAll();
+        return ResponseEntity.ok(categorias);
     }
     @GetMapping("/{id}")
     public Categorias findById(@PathVariable Integer id) {
@@ -63,7 +63,7 @@ public class CategoriasController {
         }
 
         Categorias categorias = this.repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
+                .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada"));
 
 
         categorias.setNomeCategoria(dto.nome());
