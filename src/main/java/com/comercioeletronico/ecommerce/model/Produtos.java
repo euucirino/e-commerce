@@ -14,9 +14,6 @@ public class Produtos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduto;
 
-    @Column(name = "id_categoria")
-    private Integer idCategoria;
-
     @Column
     private String nome;
 
@@ -29,20 +26,17 @@ public class Produtos {
     @Column
     private Integer estoque;
 
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
+    private Categorias categorias;
+
+
     public Integer getIdProduto() {
         return idProduto;
     }
 
     public void setIdProduto(Integer idProduto) {
         this.idProduto = idProduto;
-    }
-
-    public Integer getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
     }
 
     public String getDescricao() {
@@ -75,6 +69,14 @@ public class Produtos {
 
     public void setEstoque(Integer estoque) {
         this.estoque = estoque;
+    }
+
+    public Categorias getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(Categorias categorias) {
+        this.categorias = categorias;
     }
 
     @Override
