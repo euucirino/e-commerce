@@ -2,7 +2,6 @@ package com.comercioeletronico.ecommerce.model;
 
 
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Objects;
 

@@ -1,4 +1,6 @@
 package com.comercioeletronico.ecommerce.dto;
 
-public record ProdutosRequestDTO(String nome) {
+import java.math.BigDecimal;
+
+public record ProdutosRequestDTO(String nome, String descricao, BigDecimal preco, Integer estoque) {
 }

@@ -3,6 +3,7 @@ package com.comercioeletronico.ecommerce.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -22,6 +23,9 @@ public class Pedidos {
 
     @Column(name = "status")
     private String status;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItensPedido> itens;
 
 
     public Integer getIdPedido() {
@@ -54,6 +58,14 @@ public class Pedidos {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<ItensPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItensPedido> itens) {
+        this.itens = itens;
     }
 }
 

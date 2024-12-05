@@ -1,35 +1,38 @@
 package com.comercioeletronico.ecommerce.model;
 
-
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table
+@Table(name = "produtos")
 public class Produtos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_produto")
     private Integer idProduto;
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column
+    @Column(length = 255)
     private String descricao;
 
-    @Column
+    @Column(nullable = false)
     private BigDecimal preco;
 
-    @Column
+    @Column(nullable = false)
     private Integer estoque;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
-    private Categorias categorias;
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false)
+    private Categorias categoria;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<ItensPedido> itensPedido;
 
     public Integer getIdProduto() {
         return idProduto;
@@ -39,20 +42,20 @@ public class Produtos {
         this.idProduto = idProduto;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public BigDecimal getPreco() {
@@ -71,12 +74,20 @@ public class Produtos {
         this.estoque = estoque;
     }
 
-    public Categorias getCategorias() {
-        return categorias;
+    public Categorias getCategoria() {
+        return categoria;
     }
 
-    public void setCategorias(Categorias categorias) {
-        this.categorias = categorias;
+    public void setCategoria(Categorias categoria) {
+        this.categoria = categoria;
+    }
+
+    public List<ItensPedido> getItensPedido() {
+        return itensPedido;
+    }
+
+    public void setItensPedido(List<ItensPedido> itensPedido) {
+        this.itensPedido = itensPedido;
     }
 
     @Override
@@ -89,6 +100,6 @@ public class Produtos {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(idProduto);
+        return Objects.hash(idProduto);
     }
 }
