@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "pedidos")
@@ -53,6 +54,19 @@ public class Pedidos {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pedidos pedidos = (Pedidos) o;
+        return Objects.equals(idPedido, pedidos.idPedido);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idPedido);
     }
 }
 

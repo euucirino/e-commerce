@@ -2,6 +2,8 @@ package com.comercioeletronico.ecommerce.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "formas_pagamento")
 public class FormasPagamento {
@@ -29,5 +31,18 @@ public class FormasPagamento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FormasPagamento that = (FormasPagamento) o;
+        return idFormaPagamento == that.idFormaPagamento;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idFormaPagamento);
     }
 }

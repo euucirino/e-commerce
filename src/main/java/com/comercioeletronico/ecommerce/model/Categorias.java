@@ -2,6 +2,8 @@ package com.comercioeletronico.ecommerce.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table
 public class Categorias {
@@ -45,5 +47,16 @@ public class Categorias {
         this.descricao = descricao;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Categorias that = (Categorias) o;
+        return Objects.equals(idCategoria, that.idCategoria);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idCategoria);
+    }
 }

@@ -26,7 +26,6 @@ public class ItensPedido {
     @Column(precision = 10, scale = 2)
     private BigDecimal precoUnitario;
 
-    // Getters e Setters
     public ItensPedidoId getId() {
         return id;
     }
@@ -67,7 +66,6 @@ public class ItensPedido {
         this.precoUnitario = precoUnitario;
     }
 
-    // Método para calcular o total de um item
     public BigDecimal calcularTotal() {
         return precoUnitario.multiply(new BigDecimal(quantidade));
     }

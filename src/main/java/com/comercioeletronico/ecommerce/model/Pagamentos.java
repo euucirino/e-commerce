@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "pagamentos")
@@ -27,7 +28,7 @@ public class Pagamentos {
     @Column(name = "data_pagamento", nullable = false)
     private Timestamp dataPagamento;
 
-    // Getters e setters
+
     public Integer getIdPagamento() {
         return idPagamento;
     }
@@ -66,5 +67,18 @@ public class Pagamentos {
 
     public void setDataPagamento(Timestamp dataPagamento) {
         this.dataPagamento = dataPagamento;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pagamentos that = (Pagamentos) o;
+        return Objects.equals(idPagamento, that.idPagamento);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idPagamento);
     }
 }

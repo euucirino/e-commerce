@@ -2,6 +2,7 @@ package com.comercioeletronico.ecommerce.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "produtos")
@@ -74,5 +75,18 @@ public class Produtos {
 
     public void setCategoria(Categorias categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produtos produtos = (Produtos) o;
+        return Objects.equals(idProduto, produtos.idProduto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idProduto);
     }
 }
