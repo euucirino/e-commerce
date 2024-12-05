@@ -3,11 +3,11 @@ package com.comercioeletronico.ecommerce.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "pagamentos")
-public class Pagamento {
+public class Pagamentos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,14 +19,15 @@ public class Pagamento {
 
     @ManyToOne
     @JoinColumn(name = "id_forma_pagamento", nullable = false)
-    private FormaPagamento formaPagamento;
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal valorPago;
+    private FormasPagamento formaPagamento;
 
     @Column(nullable = false)
-    private LocalDateTime dataPagamento;
+    private BigDecimal valorPago;
 
+    @Column(name = "data_pagamento", nullable = false)
+    private Timestamp dataPagamento;
+
+    // Getters e setters
     public Integer getIdPagamento() {
         return idPagamento;
     }
@@ -43,6 +44,14 @@ public class Pagamento {
         this.pedido = pedido;
     }
 
+    public FormasPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormasPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
     public BigDecimal getValorPago() {
         return valorPago;
     }
@@ -51,19 +60,11 @@ public class Pagamento {
         this.valorPago = valorPago;
     }
 
-    public FormaPagamento getFormaPagamento() {
-        return formaPagamento;
-    }
-
-    public void setFormaPagamento(FormaPagamento formaPagamento) {
-        this.formaPagamento = formaPagamento;
-    }
-
-    public LocalDateTime getDataPagamento() {
+    public Timestamp getDataPagamento() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(LocalDateTime dataPagamento) {
+    public void setDataPagamento(Timestamp dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
 }

@@ -1,10 +1,7 @@
 package com.comercioeletronico.ecommerce.model;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "produtos")
@@ -30,9 +27,6 @@ public class Produtos {
     @ManyToOne
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false)
     private Categorias categoria;
-
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
-    private List<ItensPedido> itensPedido;
 
     public Integer getIdProduto() {
         return idProduto;
@@ -80,26 +74,5 @@ public class Produtos {
 
     public void setCategoria(Categorias categoria) {
         this.categoria = categoria;
-    }
-
-    public List<ItensPedido> getItensPedido() {
-        return itensPedido;
-    }
-
-    public void setItensPedido(List<ItensPedido> itensPedido) {
-        this.itensPedido = itensPedido;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produtos produtos = (Produtos) o;
-        return Objects.equals(idProduto, produtos.idProduto);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idProduto);
     }
 }

@@ -1,33 +1,28 @@
 package com.comercioeletronico.ecommerce.model;
 
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "pedidos")
 public class Pedidos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pedido")
     private Integer idPedido;
 
-    @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuarios usuario;
-
-    @Column(name = "data_pedido")
-    private LocalDateTime dataPedido;
-
-    @Column(name = "status")
-    private String status;
+    @Column(nullable = false)
+    private LocalDate dataPedido;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItensPedido> itens;
+    private List<ItensPedido> itensPedido;
 
+    @Column(precision = 10, scale = 2, nullable = false)
+    private BigDecimal total;
 
+    // Getters e Setters
     public Integer getIdPedido() {
         return idPedido;
     }
@@ -36,36 +31,28 @@ public class Pedidos {
         this.idPedido = idPedido;
     }
 
-    public Usuarios getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuarios usuario) {
-        this.usuario = usuario;
-    }
-
-    public LocalDateTime getDataPedido() {
+    public LocalDate getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(LocalDateTime dataPedido) {
+    public void setDataPedido(LocalDate dataPedido) {
         this.dataPedido = dataPedido;
     }
 
-    public String getStatus() {
-        return status;
+    public List<ItensPedido> getItensPedido() {
+        return itensPedido;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setItensPedido(List<ItensPedido> itensPedido) {
+        this.itensPedido = itensPedido;
     }
 
-    public List<ItensPedido> getItens() {
-        return itens;
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setItens(List<ItensPedido> itens) {
-        this.itens = itens;
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 }
 

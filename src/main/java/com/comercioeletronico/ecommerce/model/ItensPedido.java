@@ -1,28 +1,29 @@
 package com.comercioeletronico.ecommerce.model;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "itens_pedido")
 public class ItensPedido {
 
-    @Id
     @EmbeddedId
-    private ItensPedidoId id;
+    private ItensPedidoId id = new ItensPedidoId();
 
     @ManyToOne
-    @MapsId("pedidoId")
+    @MapsId("idPedido")
+    @JoinColumn(name = "id_pedido")
     private Pedidos pedido;
 
     @ManyToOne
-    @MapsId("produtoId")
+    @MapsId("idProduto")
+    @JoinColumn(name = "id_produto")
     private Produtos produto;
 
-    @Column(nullable = false)
+    @Column
     private Integer quantidade;
 
-    @Column(nullable = false)
+    @Column(precision = 10, scale = 2)
     private BigDecimal precoUnitario;
 
     // Getters e Setters
@@ -64,5 +65,10 @@ public class ItensPedido {
 
     public void setPrecoUnitario(BigDecimal precoUnitario) {
         this.precoUnitario = precoUnitario;
+    }
+
+    // Método para calcular o total de um item
+    public BigDecimal calcularTotal() {
+        return precoUnitario.multiply(new BigDecimal(quantidade));
     }
 }

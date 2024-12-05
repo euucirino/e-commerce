@@ -2,7 +2,6 @@ package com.comercioeletronico.ecommerce.controller;
 
 
 import com.comercioeletronico.ecommerce.dto.UsuariosRequestDTO;
-import com.comercioeletronico.ecommerce.model.Produtos;
 import com.comercioeletronico.ecommerce.model.Usuarios;
 import com.comercioeletronico.ecommerce.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;

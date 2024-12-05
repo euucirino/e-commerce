@@ -4,21 +4,22 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "formas_pagamento")
-public class FormaPagamento {
+public class FormasPagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_forma_pagamento")
-    private Integer idFormaPagamento;
+    private int idFormaPagamento;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    public Integer getIdFormaPagamento() {
+
+    public int getIdFormaPagamento() {
         return idFormaPagamento;
     }
 
-    public void setIdFormaPagamento(Integer idFormaPagamento) {
+    public void setIdFormaPagamento(int idFormaPagamento) {
         this.idFormaPagamento = idFormaPagamento;
     }
 
@@ -30,4 +31,3 @@ public class FormaPagamento {
         this.descricao = descricao;
     }
 }
-

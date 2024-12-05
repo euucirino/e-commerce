@@ -3,12 +3,11 @@ package com.comercioeletronico.ecommerce.controller;
 import com.comercioeletronico.ecommerce.model.Produtos;
 import com.comercioeletronico.ecommerce.repository.ProdutosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -27,29 +26,47 @@ public class ProdutosController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produtos> findById(@PathVariable Integer id) {
-        System.out.println("Buscando produto com id: " + id); // Adicionando log para debug
-        Optional<Produtos> produtoOpt = repository.findById(id);
-
-        if (produtoOpt.isEmpty()) {
-            System.out.println("Produto não encontrado!"); // Log adicional
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Retorna 404 se não encontrado
-        }
-
-        Produtos produto = produtoOpt.get();
-        System.out.println("Produto encontrado: " + produto); // Log para verificação
-
-        return ResponseEntity.ok(produto);
+    public Produtos findById(@PathVariable Integer id) {
+        return this.repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
     }
+
 
     @PostMapping
     public ResponseEntity<Produtos> save(@RequestBody Produtos produto) {
-        try {
-            produto = repository.save(produto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(produto);
-        } catch (Exception e) {
-            e.printStackTrace();  // Logando a exceção para ajudar a depurar
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        if (produto.getNome() == null || produto.getNome().isEmpty() ||
+                produto.getPreco() == null || produto.getPreco().compareTo(BigDecimal.ZERO) <= 0 ||
+                produto.getEstoque() == null || produto.getEstoque() <= 0) {
+            return ResponseEntity.badRequest().build();
         }
+        Produtos savedProduto = repository.save(produto);
+        return ResponseEntity.status(201).body(savedProduto);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Produtos> update(@PathVariable Integer id, @RequestBody Produtos produto) {
+        if (produto.getNome() == null || produto.getNome().isEmpty() ||
+                produto.getPreco() == null || produto.getPreco().compareTo(BigDecimal.ZERO) <= 0 ||
+                produto.getEstoque() == null || produto.getEstoque() <= 0 ||
+                produto.getDescricao() == null || produto.getDescricao().isEmpty()) {
+            return ResponseEntity.status(400).build();
+        }
+
+        Produtos existingProduto = this.repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+
+        existingProduto.setNome(produto.getNome());
+        existingProduto.setDescricao(produto.getDescricao());
+
+        this.repository.save(existingProduto);
+        return ResponseEntity.ok(existingProduto);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        Produtos produto = this.repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+        this.repository.delete(produto);
+        return ResponseEntity.noContent().build();
     }
 }
