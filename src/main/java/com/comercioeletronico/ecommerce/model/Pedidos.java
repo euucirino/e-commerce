@@ -22,7 +22,7 @@ public class Pedidos {
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal total;
 
-    // Getters e Setters
+
     public Integer getIdPedido() {
         return idPedido;
     }
